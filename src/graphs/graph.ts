@@ -1,5 +1,9 @@
 import { END, START, StateGraph } from "@langchain/langgraph";
-import { state } from "./state";
+import { State } from "./state";
+import { plannerAgent } from "../nodes/planner_Agent";
 
-const agent = new StateGraph(state)
+export const graph:any = new StateGraph(State)
+  .addNode("planner",plannerAgent)
+  .addEdge(START,"planner")
+  .addEdge("planner",END)
   .compile();

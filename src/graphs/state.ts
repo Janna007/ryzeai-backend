@@ -1,16 +1,17 @@
 import { MessagesValue, StateSchema } from "@langchain/langgraph";
 import z from "zod";
+import { plannerSchema } from "../schemas/planner";
+import { explanationSchema } from "../schemas/explanation";
 
-export const state = new StateSchema({
+export const State = new StateSchema({
     messages: MessagesValue,
     
-    existingPlan: z.string().optional() ,
- 
+    existingPlan:plannerSchema.optional(),
     existingCode:z.string().optional(),
 
-    plan: z.string().optional(),
+    plan: plannerSchema.optional(),
     code: z.string().optional(),
-    explanation: z.string().optional(),
+    explanation:explanationSchema.optional(),
   
     error: z.string().optional()
 

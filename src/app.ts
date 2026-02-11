@@ -1,5 +1,6 @@
 import  express, { NextFunction, Request, Response }  from "express";
 import { HttpError } from "http-errors";
+import { graph } from "./graphs/graph";
 // import projectRouter from './routers/projectRouter'
 
 
@@ -7,6 +8,36 @@ const app=express()
 
 app.use(express.json())
 
+
+app.get("/",async(req,res,next)=>{
+    const {userInput,existingPlan,existingCode}=req.body
+
+    try {
+        const finalState = await graph.invoke({
+            messages: [
+              {
+                role: "user",
+                content:userInput,
+              },
+            ],
+            existingPlan:existingPlan,
+            existingCode:existingCode
+          },
+        //   {
+        //     configurable: {
+        //       thread_id: "1"
+        //     }
+        //   }
+         )
+     
+         return res.status(200).json({
+            result:finalState
+         })
+    } catch (error) {
+        next(error)
+        return
+    }
+})
 
 
 // app.use("/project",projectRouter)
