@@ -6,7 +6,7 @@ import { generatorPrompt } from "../prompts/generator_Prompt";
 import { codeSchema } from "../schemas/code";
 
 
-const structuredModel = model.withStructuredOutput(codeSchema)
+// const structuredModel = model.withStructuredOutput(codeSchema)
 
 //define ceo-agent
 
@@ -20,15 +20,20 @@ export const generatorAgent: GraphNode<typeof State> = async (state) => {
   const prompt = generatorPrompt(plan,existingCode)
   //agent duty
 
-  const response = await structuredModel.invoke([
-    new SystemMessage(prompt)
-    , ...state.messages])
+  const response = await model.invoke([
+    new SystemMessage(prompt),
+    ...state.messages,
+  ])
+
+  const code = typeof response.content === "string"
+    ? response.content
+    : response.content.map((chunk: any) => chunk.text ?? "").join("")
 
   // console.log("Response in CEO:", {...state,ceo: response })
 
   // console.log("response in generator",response)
 
-  return { ...state,code:response}
+  return { ...state, code }
 }
 
 
