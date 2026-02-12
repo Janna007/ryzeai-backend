@@ -11,7 +11,7 @@ const structuredModel = model.withStructuredOutput(plannerSchema)
 //define ceo-agent
 
 export const plannerAgent: GraphNode<typeof State> = async (state) => {
-  // console.log("[CEO-Agent Recieving Task:", state)
+  console.log("[planner-Agent Recieving Task:", state)
   const userMessage = state.messages[0]?.content
   const existingPlan=state.existingPlan 
 
