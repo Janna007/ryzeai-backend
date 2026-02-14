@@ -6,14 +6,15 @@ import { codeSchema } from "../schemas/code";
 
 export const State = new StateSchema({
     messages: MessagesValue,
-    
-    existingPlan:plannerSchema.optional().nullable(),
-    existingCode:z.string().nullable(),
+
+    existingPlan: plannerSchema.optional().nullable(),
+    existingCode: z.string().nullable(),
 
     plan: plannerSchema.optional(),
     code: z.string(),
-    explanation:explanationSchema.optional(),
-  
+    validation: z.any().optional(),
+    explanation: explanationSchema.optional(),
+
     error: z.string().optional()
 
 });

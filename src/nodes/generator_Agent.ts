@@ -31,7 +31,7 @@ export const generatorAgent: GraphNode<typeof State> = async (state) => {
 
   // console.log("Response in CEO:", {...state,ceo: response })
 
-  // console.log("response in generator",response)
+  console.log("response in generator",response)
 
   return { ...state, code }
 }
